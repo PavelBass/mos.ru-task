@@ -3,35 +3,9 @@ from typing import (
     Dict,
     Iterable,
     List,
-    Optional,
-    Set,
 )
 
-
-class Theme:
-    """Theme type
-    Holds theme name, array of theme phrases.
-    Encapsulates methods to check if some phrase is relevant to theme
-    """
-    def __init__(self, name: str, phrases: Optional[Iterable[str]]=None) -> None:
-        self.__name = name
-        phrases = [] if phrases is None else phrases
-        self.__phrases = [self._phrase_to_set(phrase) for phrase in phrases]
-
-    @property
-    def name(self) -> str:
-        return self.__name
-
-    @staticmethod
-    def _phrase_to_set(phrase: str) -> Set[str]:
-        return set(phrase.lower().split())
-
-    def is_relevant(self, phrase: str) -> bool:
-        phrase_set = self._phrase_to_set(phrase)
-        for theme_phrase_set in self.__phrases:
-            if theme_phrase_set <= phrase_set:
-                return True
-        return False
+from mosru_task.types import Theme
 
 
 class ThemesKeeper:
@@ -56,7 +30,7 @@ class ThemesKeeper:
         if theme_name in self.__themes:
             del(self.__themes[theme_name])
 
-    async def _themes(self) -> AsyncGenerator[Theme]:
+    async def _themes(self) -> AsyncGenerator[Theme, None]:
         """Povides asynchronous access to Themes array"""
         for theme_name in self.themes:
             if theme_name not in self.__themes:
