@@ -16,7 +16,7 @@ setup(
             'mosru_task=mosru_task.cli:cli',
         ],
     },
-    long_description=open(os.path.join(os.path.dirname(__file__), 'README_RU.md')).read(),
+    long_description=open(os.path.join(os.path.dirname(__file__), 'README.md')).read(),
     packages=find_packages('src'),
     package_dir={'': 'src'},
     install_requires=[
