@@ -11,14 +11,17 @@ from mosru_task.tools.theme import ThemesKeeper
 
 
 class SearchService(LoggerMixin):
+    """Business logic of search"""
+
     themes_keeper = ThemesKeeper()
 
     @dataclass
     class _Data:
+        """Data structure of search result"""
         query: str
         themes: List[str] = field(default_factory=list)
 
-    async def get_search_result(self, query: str):
+    async def get_search_result(self, query: str) -> ServiceResult:
         result = ServiceResult()
         data = await self._get_search_data(query)
         if not data.themes:
@@ -27,7 +30,7 @@ class SearchService(LoggerMixin):
         result.data = data
         return result
 
-    async def _get_search_data(self, query) -> _Data:
+    async def _get_search_data(self, query: str) -> _Data:
         data = self._Data(query=query)
         if query:
             data.themes = await self._get_relevant_themes(query)
