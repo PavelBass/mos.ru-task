@@ -7,13 +7,13 @@ from typing import List
 from mosru_task.enums import ServiceResultStatus
 from mosru_task.mixins import LoggerMixin
 from mosru_task.services.base import ServiceResult
-from mosru_task.tools.theme import ThemesKeeper
+from mosru_task.tools.theme import themes_keeper_instance
 
 
 class SearchService(LoggerMixin):
     """Business logic of search"""
 
-    themes_keeper = ThemesKeeper()
+    themes_keeper = themes_keeper_instance
 
     @dataclass
     class _Data:
