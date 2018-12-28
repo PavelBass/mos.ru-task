@@ -1,7 +1,7 @@
 from aiohttp import web
 
 from mosru_task.handlers.base import BaseHandler
-from mosru_task.services.theme import SearchService
+from mosru_task.services.search import SearchService
 
 
 class SearchHandler(BaseHandler):

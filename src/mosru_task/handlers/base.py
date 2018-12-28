@@ -4,7 +4,7 @@ from dataclasses import asdict
 from aiohttp import web
 
 from mosru_task.mixins import LoggerMixin
-from mosru_task.services.theme import ServiceResult
+from mosru_task.services.search import ServiceResult
 
 
 class BaseHandler(LoggerMixin, web.View):
