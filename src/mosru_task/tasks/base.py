@@ -19,11 +19,15 @@ class BasePeriodicTask(LoggerMixin):
     """
     period: Optional[int] = None
 
+    @property
+    def name(self) -> str:
+        return self.__class__.__name__
+
     async def main(self, *args, **kwargs):
         started_at = time.time()
         self.logger.info(
             'Periodic task %s started at %d with period %s',
-            self.__class__.__name__,
+            self.name,
             started_at,
             self.period
         )
