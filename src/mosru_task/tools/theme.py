@@ -46,3 +46,6 @@ class ThemesKeeper:
         to much time with blocking server.
         """
         return [theme.name async for theme in self._themes() if theme.is_relevant(phrase)]
+
+
+themes_keeper_instance = ThemesKeeper()
