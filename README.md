@@ -1,4 +1,4 @@
-# mos.ru Job challenge
+# some company Job challenge
 
 ## Задание
 
