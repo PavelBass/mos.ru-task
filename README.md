@@ -1,4 +1,4 @@
-# some_company Job challenge
+# mos.ru Job challenge
 
 ## Задание
 
@@ -30,3 +30,80 @@
 Запрос "борща любимого рецепт" соответствует теме "кухня", т.к. содержит в себе все слова из фразы "рецепт борща".
 Запрос "тайская кухня" соответствует двум темам: "кухня" и "товары".
 Запрос "кухня" не соответствует ни одной теме, т.к. не включает в себя целиком слова ни одной из фраз.
+
+## Реализация
+
+Сервис реализован на Python 3.7 с использованием библиотек asyncio и aiohttp.
+
+### Запуск сервиса
+
+Создайте виртуальное окружение с Python 3.7 и выше и активируйте его. Далее для установки:
+```pip install git+https://github.com/PavelBass/secrecompany-task.git```
+
+Для запуска исползуйте команду:
+```mosru_task run```
+
+Сервис запустится по адресу 0.0.0.0 на порту 8000, для изменения IP адреса и порта, используйте соответсвтующие параметры, например:
+```mosru_task run --host 127.1 --port 9999```
+
+### Запуск тестов
+
+Склонируйте проект:
+```git clone https://github.com/PavelBass/secret-company-task```
+
+Перейдите в папку с проектом:
+```cd secret-company-task```
+
+Установите необходимые для тестирования библиотеки (лучше использовать виртуальное окружение):
+```pip install git+https://github.com/PavelBass/secret-company-task[test]```
+
+Запустите тесты:
+```pytest```
+
+### API
+
+Поисковый url сервиса находится по адресу `HOST:PORT/search/`, по умолчанию на `0.0.0.0:8000/search`. Апи принимает
+GET запросы c параметром `q` (query).
+
+Для тестирования API можно использовать брауез, либо консольные утилиты, такие как curl, httpie и т.п. Например, используя консольную утилиту httpie:
+
+```
+~$ http 0.0.0.0:8000/search/?q="тайская кухня"
+HTTP/1.1 200 OK
+Content-Length: 230
+Content-Type: application/json; charset=utf-8
+Date: Sat, 29 Dec 2018 11:57:13 GMT
+Server: Python/3.7 aiohttp/3.5.1
+
+{
+    "data": {
+        "query": "тайская кухня",
+        "themes": [
+            "товары",
+            "кухня"
+        ]
+    },
+    "status": {
+        "name": "Ok",
+        "value": "Found relevant data"
+    }
+}
+
+~$ http 0.0.0.0:8000/search/?q="кухня"
+HTTP/1.1 200 OK
+Content-Length: 129
+Content-Type: application/json; charset=utf-8
+Date: Sat, 29 Dec 2018 11:58:11 GMT
+Server: Python/3.7 aiohttp/3.5.1
+
+{
+    "data": {
+        "query": "кухня",
+        "themes": []
+    },
+    "status": {
+        "name": "NoResult",
+        "value": "No result for passed query"
+    }
+}
+```
